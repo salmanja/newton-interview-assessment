@@ -1,6 +1,10 @@
-# NewtonUiUxInterview
+# NewtonUiUxInterviewAssessment
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
+
+## Assessment Summary
+
+This technical assessment was provided by Newton. The goal is to build UIs with pixel-perfect precision. The provided starter repo was forked from [https://github.com/Newton-Connectivity/newton-ui-ux-interview].
 
 ## Development server
 

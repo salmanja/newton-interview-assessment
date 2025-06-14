@@ -1,1 +1,19 @@
-<p>landing-page works!</p>
+<div class="landing-container">
+    <mat-card class="content-card">
+        <!-- empty state -->
+         <ng-container *ngIf="assets.length === 0; else populateState">
+            <h2>No Assets</h2>
+            <p>You currently don't have any Assets...</p>
+            <button mat-button (click)="openDialog()">Add Assets</button>
+        </ng-container>
+        <ng-template #populateState>
+            <h2>Assets</h2>  
+            <ul>
+                <li *ngFor="let asset of assets">{{asset.name}}</li>
+            </ul>    
+            <button mat-button (click)="openDialog()">Add Assets</button>  
+        </ng-template>   
+    </mat-card>
+</div>
+
+

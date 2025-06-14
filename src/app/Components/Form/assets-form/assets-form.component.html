@@ -1,1 +1,24 @@
-<p>assets-form works!</p>
+<h2 mat-dialog-title >Add Asset</h2>
+<form [formGroup]="addAssetsForm" (ngSubmit)="onSubmit()">
+<!-- Type -->
+<mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+        <mat-option value="gift">Gift</mat-option>
+        <mat-option value="savings">Savings</mat-option>
+        <mat-option value="rrsp">RRSP</mat-option>
+    </mat-select>
+</mat-form-field>
+<!-- Value -->
+<mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Value</mat-label>
+    <input matInput type="number" formControlName="value">
+</mat-form-field>
+
+<!-- actions -->
+ <div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button color="primary"[disabled]="addAssetsForm.invalid" (click)="onSubmit()" >Save</button>
+ </div>
+</form>
+

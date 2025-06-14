@@ -5,7 +5,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
-
+import {MatDivider } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 export const MATERIAL_IMPORTS = [
   MatDialogModule,
@@ -15,4 +16,6 @@ export const MATERIAL_IMPORTS = [
   MatInputModule,
   MatFormFieldModule, 
   MatSelectModule,
+  MatDivider,
+  MatListModule
 ];

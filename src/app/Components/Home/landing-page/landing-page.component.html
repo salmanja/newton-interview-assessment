@@ -1,19 +1,45 @@
 <div class="landing-container">
     <mat-card class="content-card">
-        <!-- empty state -->
-         <ng-container *ngIf="assets.length === 0; else populateState">
-            <h2>No Assets</h2>
-            <p>You currently don't have any Assets...</p>
-            <button mat-button (click)="openDialog()">Add Assets</button>
-        </ng-container>
-        <ng-template #populateState>
-            <h2>Assets</h2>  
-            <ul>
-                <li *ngFor="let asset of assets">{{asset.name}}</li>
-            </ul>    
-            <button mat-button (click)="openDialog()">Add Assets</button>  
-        </ng-template>   
+      <!-- Empty State -->
+      <ng-container *ngIf="assets.length === 0">
+        <mat-card-content class="empty-state">
+          <mat-icon class="money-icon" svgIcon="hand-dollar"></mat-icon>
+          <mat-card-title>No Assets</mat-card-title>
+          <mat-card-subtitle>You currently don't have any Assets...</mat-card-subtitle>
+          <mat-card-actions>
+            <button mat-flat-button color="primary" (click)="openDialog()">Add Assets</button>
+          </mat-card-actions>
+        </mat-card-content>
+      </ng-container>
+  
+      <!-- Populated State -->
+      <ng-container *ngIf="assets.length > 0">
+        <mat-card-header>
+          <mat-card-title>Assets</mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let asset of assets">
+              <span matListItemTitle>{{asset.type}}</span>
+              <span matListItemLine>${{asset.value}}</span>
+              <button mat-icon-button color="warn" matListItemMeta>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-list-item>
+          </mat-list>
+  
+          <mat-divider></mat-divider>
+          
+          <div class="total-value">
+            <span>TOTAL VALUE</span>
+            <span>${{formatCurrency(totalValue)}}</span>
+          </div>
+        </mat-card-content>
+  
+        <mat-card-actions align="end">
+          <button mat-flat-button color="primary" (click)="openDialog()">Add Assets</button>
+        </mat-card-actions>
+      </ng-container>
     </mat-card>
-</div>
-
-
+  </div>

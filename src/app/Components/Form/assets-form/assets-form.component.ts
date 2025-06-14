@@ -17,8 +17,8 @@ constructor(private dialogRef: MatDialogRef<AssetsFormComponent>,
   private fb: FormBuilder) {
   this.addAssetsForm = this.fb.group({
     //form feilds with validation
-    assetType: ['', Validators.required],
-    assetValue: ['', [Validators.required]],
+    type: ['', Validators.required],
+    value: [null, [Validators.required, Validators.min(0)]],
   });
 }
 

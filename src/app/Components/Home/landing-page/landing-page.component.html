@@ -1,45 +1,50 @@
 <div class="landing-container">
-    <mat-card class="content-card">
-      <!-- Empty State -->
-      <ng-container *ngIf="assets.length === 0">
-        <mat-card-content class="empty-state">
-          <mat-icon class="money-icon" svgIcon="hand-dollar"></mat-icon>
-          <mat-card-title>No Assets</mat-card-title>
-          <mat-card-subtitle>You currently don't have any Assets...</mat-card-subtitle>
-          <mat-card-actions>
-            <button mat-flat-button color="primary" (click)="openDialog()">Add Assets</button>
-          </mat-card-actions>
-        </mat-card-content>
-      </ng-container>
-  
-      <!-- Populated State -->
-      <ng-container *ngIf="assets.length > 0">
-        <mat-card-header>
-          <mat-card-title>Assets</mat-card-title>
-        </mat-card-header>
-        
-        <mat-card-content>
-          <mat-list>
-            <mat-list-item *ngFor="let asset of assets">
-              <span matListItemTitle>{{asset.type}}</span>
-              <span matListItemLine>${{asset.value}}</span>
-              <button mat-icon-button color="warn" matListItemMeta>
-                <mat-icon>delete</mat-icon>
-              </button>
-            </mat-list-item>
-          </mat-list>
-  
-          <mat-divider></mat-divider>
-          
-          <div class="total-value">
-            <span>TOTAL VALUE</span>
-            <span>${{formatCurrency(totalValue)}}</span>
-          </div>
-        </mat-card-content>
-  
-        <mat-card-actions align="end">
-          <button mat-flat-button color="primary" (click)="openDialog()">Add Assets</button>
+  <mat-card class="content-card">
+    <!-- Empty State -->
+    <ng-container *ngIf="assets.length === 0">
+      <mat-card-content class="empty-state">
+        <mat-icon class="money-icon" svgIcon="hand-dollar"></mat-icon>
+        <mat-card-title>No Assets</mat-card-title>
+        <mat-card-subtitle>You currently don't have any Assets...</mat-card-subtitle>
+        <mat-card-actions>
+          <button mat-stroked-button (click)="openDialog()">
+            Add Assets
+          </button>
         </mat-card-actions>
-      </ng-container>
-    </mat-card>
-  </div>
+      </mat-card-content>
+    </ng-container>
+
+    <!-- Populated State -->
+    <ng-container *ngIf="assets.length > 0">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon class="money-icon" svgIcon="hand-dollar"></mat-icon>
+          Assets
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="assets-list">
+        <div class="asset-item" *ngFor="let asset of assets; let i = index">
+          <div class="asset-info">
+            <span class="asset-type">{{ asset.type }}</span>
+            <span class="asset-value">{{ formatCurrency(asset.value) }}</span>
+          </div>
+          <button mat-icon-button (click)="removeAsset(i)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <div class="total-value">
+          <span>TOTAL VALUE</span>
+          <span>{{ formatCurrency(totalValue) }}</span>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-stroked-button (click)="openDialog()">
+          Add Assets
+        </button>
+      </mat-card-actions>
+    </ng-container>
+  </mat-card>
+</div>

@@ -5,7 +5,11 @@ import { AssetsFormComponent } from '../../Form/assets-form/assets-form.componen
 import { NgIf, NgFor } from '@angular/common';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
+
+export interface Asset {
+  type: string;
+  value: number;
+}
 
 @Component({
   selector: 'app-landing-page',
@@ -15,39 +19,52 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent {
-  assets: any[] = [];
+  assets: Asset[] = [];
   totalValue: number = 0;
 
   constructor(
-  private http: HttpClient,
     private dialog: MatDialog,
-  private iconRegistry: MatIconRegistry,
+    private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer
   ) {
-   this.iconRegistry.addSvgIcon(
+    this.iconRegistry.addSvgIcon(
       'hand-dollar',
-      this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/hand-dollar.svg')
+      this.sanitizer.bypassSecurityTrustResourceUrl(
+        'assets/icons/hand-dollar.svg'
+      )
     );
   }
-  
 
-  formatCurrency(value: number): string {
-    return `$${value.toFixed(2)}`;
-  }
-
-  openDialog() {
+  openDialog(): void {
     const dialogRef = this.dialog.open(AssetsFormComponent, {
-      width: '500px',
+      width: '640px',
+      minWidth: '600px',
+      disableClose: true,
+      panelClass: 'custom-dialog-container',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.assets.push(result);
+      if (result && result.length > 0) {
+        this.assets.push(...result);
         this.calculateTotalValue();
       }
     });
   }
-  calculateTotalValue() {
-    this.totalValue = this.assets.reduce((sum, asset) => sum + Number(asset.value), 0);
+
+  calculateTotalValue(): void {
+    this.totalValue = this.assets.reduce((sum, asset) => sum + asset.value, 0);
+  }
+
+  formatCurrency(value: number): string {
+    return new Intl.NumberFormat('en-US', {
+      style: 'decimal',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(value);
+  }
+
+  removeAsset(index: number): void {
+    this.assets.splice(index, 1);
+    this.calculateTotalValue();
   }
 }

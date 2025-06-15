@@ -1,24 +1,70 @@
-<h2 mat-dialog-title >Add Asset</h2>
-<form [formGroup]="addAssetsForm" (ngSubmit)="onSubmit()">
-<!-- Type -->
-<mat-form-field appearance="fill" style="width: 100%;">
-    <mat-label>Type</mat-label>
-    <mat-select formControlName="type">
-        <mat-option value="gift">Gift</mat-option>
-        <mat-option value="savings">Savings</mat-option>
-        <mat-option value="rrsp">RRSP</mat-option>
-    </mat-select>
-</mat-form-field>
-<!-- Value -->
-<mat-form-field appearance="fill" style="width: 100%;">
-    <mat-label>Value</mat-label>
-    <input matInput type="number" formControlName="value">
-</mat-form-field>
+<div class="modal-header">
+  <div class="header-content">
+    <mat-icon svgIcon="hand-dollar" class="money-icon"></mat-icon>
+    <span class="dialog-title">Add Assets</span>
+  </div>
+  <button mat-icon-button (click)="onClose()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 
-<!-- actions -->
- <div mat-dialog-actions align="end">
-    <button mat-button (click)="onCancel()">Cancel</button>
-    <button mat-button color="primary"[disabled]="addAssetsForm.invalid" (click)="onSubmit()" >Save</button>
- </div>
+<form [formGroup]="assetsForm" class="form-content">
+  <div class="form-header">
+    <div class="column-label">Type</div>
+    <div class="column-label">Value</div>
+    <div class="column-spacer"></div>
+  </div>
+
+  <div formArrayName="assets" class="assets-rows">
+    <div 
+      class="asset-row" 
+      *ngFor="let assetControl of assetsFormArray.controls; let i = index"
+      [formGroup]="getAssetFormGroup(i)">
+      
+      <mat-form-field appearance="outline" class="type-field">
+        <mat-select formControlName="type" placeholder="-- Select --">
+          <mat-option *ngFor="let type of assetTypes" [value]="type.value">
+            {{ type.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="value-field">
+        <span matTextPrefix>$&nbsp;</span>
+        <input 
+          matInput 
+          formControlName="value" 
+          type="number" 
+          step="0.01" 
+          placeholder="0.00" />
+      </mat-form-field>
+
+      <button 
+        mat-icon-button 
+        color="warn" 
+        type="button"
+        (click)="removeAsset(i)"
+        [disabled]="assetsFormArray.length === 1">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="add-another-row">
+    <mat-icon class="add-icon">add</mat-icon>
+    <button type="button" mat-button class="add-button" (click)="addAnotherAsset()">
+      Add Another Asset
+    </button>
+  </div>
 </form>
 
+<div class="modal-actions">
+  <button mat-button (click)="onClose()">Close</button>
+  <button 
+    mat-flat-button 
+    color="primary" 
+    [disabled]="!isFormValid()" 
+    (click)="onSave()">
+    Save
+  </button>
+</div>

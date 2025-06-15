@@ -1,0 +1,164 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 576px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 600px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e0e0e0;
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .money-icon {
+      color: #4CAF50;
+      font-size: 20px;
+    }
+
+    .dialog-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+    }
+  }
+}
+
+.form-content {
+  padding: 24px;
+  min-height: 200px;
+}
+
+.form-header {
+  display: grid;
+  grid-template-columns: 200px 200px 40px;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  .column-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+  }
+
+  .column-spacer {
+    width: 40px;
+  }
+}
+
+.assets-rows {
+  .asset-row {
+    display: grid;
+    grid-template-columns: 200px 200px 40px;
+    gap: 16px;
+    align-items: start;
+    margin-bottom: 16px;
+
+    .type-field, .value-field {
+      width: 100%;
+
+      ::ng-deep .mat-mdc-form-field {
+        width: 100%;
+      }
+    }
+
+    button[mat-icon-button] {
+      margin-top: 8px;
+      color: #f44336;
+      width: 32px;
+      height: 32px;
+
+      &:disabled {
+        color: #ccc;
+      }
+    }
+  }
+}
+
+.add-another-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  cursor: pointer;
+
+  .add-icon {
+    color: #4CAF50;
+    font-size: 18px;
+  }
+
+  .add-button {
+    color: #4CAF50;
+    font-weight: 500;
+    padding: 0;
+    min-width: auto;
+    text-transform: none;
+    font-size: 14px;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-top: 1px solid #e0e0e0;
+  background: #fafafa;
+
+  button {
+    min-width: 80px;
+    height: 36px;
+  }
+
+  button[color="primary"] {
+    background-color: #4CAF50;
+    color: white;
+
+    &:disabled {
+      background-color: #e0e0e0;
+      color: #999;
+    }
+  }
+}
+
+// Override Material styles
+::ng-deep .mat-mdc-dialog-container {
+  padding: 0 !important;
+  border-radius: 8px !important;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+::ng-deep .mat-mdc-form-field {
+  .mat-mdc-form-field-flex {
+    padding: 0;
+  }
+}
+
+::ng-deep .mat-mdc-select-placeholder {
+  color: #999;
+}

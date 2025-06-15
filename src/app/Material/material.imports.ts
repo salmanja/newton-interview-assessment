@@ -7,6 +7,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDivider } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
+
 
 export const MATERIAL_IMPORTS = [
   MatDialogModule,
@@ -17,5 +20,7 @@ export const MATERIAL_IMPORTS = [
   MatFormFieldModule, 
   MatSelectModule,
   MatDivider,
-  MatListModule
+  MatListModule,
+  MatToolbarModule,
+  MatTableModule
 ];

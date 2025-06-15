@@ -5,3 +5,17 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.dark-backdrop {
+    background: rgba(0, 0, 0, 0.7) !important;
+  }
+  
+  .custom-dialog-panel{
+    .mat-mdc-dialog-surface {
+    border-radius: 25px !important;
+    padding: 0 !important;
+    width: 640px !important;
+    max-width: 95vw;
+  }
+  }
+  

@@ -41,6 +41,9 @@ export class LandingPageComponent {
       minWidth: '600px',
       disableClose: true,
       panelClass: 'custom-dialog-container',
+      position: { top: '10vh' },
+      hasBackdrop: true,
+      backdropClass: 'dark-backdrop',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

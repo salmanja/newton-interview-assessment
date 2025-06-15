@@ -24,22 +24,31 @@
       </mat-card-header>
 
       <mat-card-content class="assets-list">
-        <div class="asset-item" *ngFor="let asset of assets; let i = index">
+        <div class="header-divider"></div>
+        
+        <div class="asset-item" *ngFor="let asset of assets; let i = index; let last = last">
           <div class="asset-info">
             <span class="asset-type">{{ asset.type }}</span>
-            <span class="asset-value">{{ formatCurrency(asset.value) }}</span>
+            <span class="asset-value">${{ formatCurrency(asset.value) }}</span>
           </div>
-          <button mat-icon-button (click)="removeAsset(i)">
-            <mat-icon>close</mat-icon>
-          </button>
+          <div class="delete-icon-container">
+            <button mat-icon-button class="delete-button" (click)="removeAsset(i)">
+              <div class="delete-icon-background">
+                <mat-icon class="delete-icon">delete</mat-icon>
+              </div>
+            </button>
+          </div>
         </div>
 
-        <div class="total-value">
-          <span>TOTAL VALUE</span>
-          <span>{{ formatCurrency(totalValue) }}</span>
+        <div class="total-value-container">
+          <div class="total-value">
+            <span>TOTAL VALUE</span>
+            <span>${{ formatCurrency(totalValue) }}</span>
+          </div>
         </div>
       </mat-card-content>
 
+      <div class="card-actions-divider"></div>
       <mat-card-actions>
         <button mat-stroked-button (click)="openDialog()">
           Add Assets

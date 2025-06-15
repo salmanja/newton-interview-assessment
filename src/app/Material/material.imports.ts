@@ -9,6 +9,7 @@ import {MatDivider } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 export const MATERIAL_IMPORTS = [
@@ -22,5 +23,6 @@ export const MATERIAL_IMPORTS = [
   MatDivider,
   MatListModule,
   MatToolbarModule,
-  MatTableModule
+  MatTableModule,
+  MatTooltipModule
 ];

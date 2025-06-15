@@ -11,6 +11,7 @@ import { MATERIAL_IMPORTS } from '../../../Material/material.imports';
 import { NgFor } from '@angular/common';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface AssetFormData {
   type: string;
@@ -37,7 +38,8 @@ export class AssetsFormComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AssetsFormComponent>,
     private iconRegistry: MatIconRegistry,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private snackBar: MatSnackBar
   ) {
     this.iconRegistry.addSvgIcon(
       'hand-dollar',
@@ -67,27 +69,56 @@ export class AssetsFormComponent {
   }
 
   addAnotherAsset(): void {
-    this.assetsFormArray.push(this.createAssetFormGroup());
+    try {
+      this.assetsFormArray.push(this.createAssetFormGroup());
+    } catch (error) {
+      console.error('Error adding asset:', error);
+      this.snackBar.open('Could not add asset. Please try again.', 'Close', {
+        duration: 3000,
+      });
+    }
   }
 
   removeAsset(index: number): void {
-    if (this.assetsFormArray.length > 1) {
-      this.assetsFormArray.removeAt(index);
+    try {
+      if (this.assetsFormArray.length > 1) {
+        this.assetsFormArray.removeAt(index);
+      }
+    } catch (error) {
+      console.error('Error removing asset:', error);
+      this.snackBar.open('Could not remove asset. Please try again.', 'Close', {
+        duration: 3000,
+      });
     }
   }
 
   onClose(): void {
-    this.dialogRef.close();
+    try {
+      this.dialogRef.close();
+    } catch (error) {
+      console.error('Error closing dialog:', error);
+    }
   }
 
   onSave(): void {
-    if (this.assetsForm.valid) {
-      const formValue = this.assetsForm.value;
-      const assets: AssetFormData[] = formValue.assets.map((asset: any) => ({
-        type: asset.type,
-        value: parseFloat(asset.value),
-      }));
-      this.dialogRef.close(assets);
+    try {
+      if (this.assetsForm.valid) {
+        const formValue = this.assetsForm.value;
+        const assets: AssetFormData[] = formValue.assets.map((asset: any) => ({
+          type: asset.type,
+          value: parseFloat(asset.value) || 0,
+        }));
+        this.dialogRef.close(assets);
+      } else {
+        this.snackBar.open('Please fill in all required fields.', 'Close', {
+          duration: 3000,
+        });
+      }
+    } catch (error) {
+      console.error('Error saving assets:', error);
+      this.snackBar.open('Could not save assets. Please try again.', 'Close', {
+        duration: 3000,
+      });
     }
   }
 
